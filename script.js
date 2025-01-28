@@ -18,7 +18,7 @@ function addBookLibrary(name, author, year, isRead, index) {
 function replacer() {
     book.replaceChildren("");
     myLibrary.forEach(el => {
-        const inpIsRead = el.read;
+        let inpIsRead = el.read;
         const card = document.createElement("div");
         card.classList = `card ${el.index}`;
         const p1 = document.createElement("p");
@@ -31,6 +31,21 @@ function replacer() {
         const butRead = document.createElement("button");
         butRead.textContent = "Read";
         inpIsRead ? butRead.style.backgroundColor = "green" : butRead.style.backgroundColor = "red";;
+        butRead.addEventListener("click", () => {
+            if(butRead.style.backgroundColor == "green"){
+                inpIsRead = false; 
+                butRead.style.backgroundColor = "red"
+            } else{
+                butRead.style.backgroundColor = "green";
+                inpIsRead = true; 
+            }
+            myLibrary.forEach(el => {
+                if(el.index == card.classList[1]) {
+                    el.read = inpIsRead;
+                    return 0;
+                };
+            });
+        })
         const butDel = document.createElement("button");
         butDel.textContent = "Delete";
         butDel.addEventListener("click", () => {
